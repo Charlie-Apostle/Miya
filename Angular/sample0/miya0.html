@@ -1,0 +1,29 @@
+<!doctype html>
+<html ng-app>
+<head>
+<!--
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
+-->
+    <script src="../angular.js"></script>
+    <script>
+       angular.module('windowExample', [])
+       .controller('ExampleController', ['$scope', '$window', function($scope, $window) {
+       $scope.greeting = 'Hello, World!';
+       $scope.doGreeting = function(greeting) {
+         $window.alert(greeting);
+       };
+       }]);
+    </script>
+</head>
+<body>
+    <div>
+    <label>name:</label>
+    <input type="text" ng-model="yourName" placeholder="–¼‘O‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢">
+    <hr>
+    <span>‚±‚ñ‚É‚¿‚Í {{yourName}}!</span>
+    </div>
+    <div ng-controller="ExampleController">
+      <button ng-click="doGreeting(greeting)">ALERT</button>
+    </div>
+</body>
+</html>
