@@ -1,18 +1,3 @@
-Skip to content
- This repository
-Explore
-Gist
-Blog
-Help
-Charlie Software Charlie-Apostle
- 
-0  Watch 
-  Star 0
- Fork 0Charlie-Apostle/Miya
- tree: 9e641a07bb  Miya / Biz / SplitFacebookFriend.java
-Charlie-Apostle 31 minutes ago Java for Biz Project
-0 contributors
-58 lines (53 sloc)  1.701 kb RawBlameHistory  
 package BizIQ;
 import java.io.*;
 import java.util.*;
@@ -71,5 +56,3 @@ class SplitFacebookFriend {
     }
 
 }
-Status API Training Shop Blog About
-c 2014 GitHub, Inc. Terms Privacy Security Contact
