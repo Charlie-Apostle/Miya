@@ -5,25 +5,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
 -->
     <script src="../angular.js"></script>
-    <script>
-       angular.module('windowExample', [])
-       .controller('ExampleController', ['$scope', '$window', function($scope, $window) {
-       $scope.greeting = 'Hello, World!';
-       $scope.doGreeting = function(greeting) {
-         $window.alert(greeting);
-       };
-       }]);
-    </script>
+
 </head>
 <body>
     <div>
-    <label>name:</label>
-    <input type="text" ng-model="yourName" placeholder="名前を入力してください">
+    <label>氏名:</label>
+    <input type="text" ng-model="yourName" placeholder="名前を入力"><br>
+    <label>年齢:</label>
+    <input type="text" ng-model="yourAge" placeholder="年齢を入力してください"><br>
     <hr>
-    <span>こんにちは {{yourName}}!</span>
-    </div>
-    <div ng-controller="ExampleController">
-      <button ng-click="doGreeting(greeting)">ALERT</button>
+    <span>こんにちは {{yourName}}!</span><br>
+    <span>年齢 {{yourAge}}歳</span><br>
     </div>
 </body>
 </html>
