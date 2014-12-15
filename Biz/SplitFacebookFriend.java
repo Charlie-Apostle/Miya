@@ -1,4 +1,4 @@
-
+package BizIQ;
 import java.io.*;
 import java.util.*;
 /*
@@ -14,9 +14,8 @@ class SplitFacebookFriend {
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
             
             String line;
-
             while ((line = br.readLine()) != null) {           	
-            	 System.out.println(line);
+            	 // System.out.println(line);
             	GetToken1(line,bw);
             }
             br.close();
@@ -27,32 +26,27 @@ class SplitFacebookFriend {
         }
     }
     public static void GetToken1(String line,BufferedWriter bw){
+    	String[] strArray = line.split(",");
+    	
+    	// System.out.println(strArray[0]); // Seq. No.
+    	// System.out.println(strArray[1]); // biz User_id
+    	// System.out.println(strArray[2]); // facebook_id 
+    	// System.out.println(strArray[3]); // facebook_id list  xxx|yyy|zzz
+    	// System.out.println(strArray[4]); // create data 7777-mm-dd hh:mi:ss 
+
     	try{
-    		StringTokenizer st = new StringTokenizer(line,",");   		
-    		String strToken;
-    		
-    		String strid = st.nextToken();
-    		System.out.println(strid);	
-    		String strUid = st.nextToken();
-    		System.out.println(strUid);	
-    		String strfb_id = st.nextToken();
-    		System.out.println(strfb_id);
-    		
-    		StringTokenizer stfb = new StringTokenizer(st.nextToken(),"|");
-    		while (stfb.hasMoreTokens()){
-    			strToken = stfb.nextToken();
-    			String s = strUid.concat(",".concat(strfb_id).concat(","));
-    			s = s.concat(strToken);
-    			System.out.println(s);
-    			bw.write(s);
+    		String strList = strArray[3].replace("|", ",");
+    		String strListArray[] = strList.split(",");
+    		System.out.println(String.format("%d",strListArray.length));
+    		String s = strArray[1].concat(",".concat(strArray[2].concat(",")));
+    		for(int idx = 0 ; idx < strListArray.length;idx++){
+    			String strPut = s.concat(strListArray[idx]);
+    			bw.write(strPut);
     			bw.newLine();
+    			System.out.println(strPut);
     		}
     	}catch(Exception e){
     		System.out.println(e);
     	}
-    	// catch (IOException e){
-    	//	System.out.println(e);
-    	//}
     }
-
 }
