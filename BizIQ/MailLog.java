@@ -1,12 +1,10 @@
-@@ -1,327 +0,0 @@
-package BI;
+package BizIQ;
 import java.io.*;
 import java.util.regex.Pattern;
 
 
 // import java.util.*;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.binary.Hex;
 
 
 class MailLog {
@@ -103,7 +101,7 @@ class MailLog {
        	 System.out.println(strArray[1]);
         	return "noreply@biz-iq.jp";
         }else{
-        	return strArray[1].replace(',','.');
+        	return strArray[1].replace(',','_');
         }
     }
 
@@ -167,10 +165,10 @@ class MailLog {
         String str_date = "^Date";
         String str_error = "^Diagnostic-Code";
         String str_to = "^to:";
-        String str_from = "^From:";
+        String str_from = "^ｆrom:";
         String str_subject = "^Subject:";
         
-        //?f?B???N?g???w??
+        //ディレクトリ指定
              String path = "C:\\tmp\\tmp\\201406";
              // String path = "C:\\tmp\\new";
         try{
@@ -179,8 +177,8 @@ class MailLog {
             // File wfile = new File("c:\\tmp\\out_new.csv");
             BufferedWriter bw = new BufferedWriter(new FileWriter(wfile));
        
-            //?t???p?X??��
-            // System.out.println("--?t?@?C????(?t???p?X)--");
+            //フルパスで取得
+            // System.out.println("--ファイル一覧(フルパス)--");
             File[] files1 = dir.listFiles();
             // System.out.println("Files" + files1.length);
             for (int i = 0; i < files1.length; i++) {
@@ -189,6 +187,7 @@ class MailLog {
                 String[] str_ErrArray = {"","","",""};
                 String str_MySQL_date = "";
                 String str_Mail_Addr_To = "";
+                String str_Mail_Addr_From = "";
                 String str_ErrMessage = "";
                 String str_Subject = "";
                File file = files1[i];
@@ -224,12 +223,21 @@ class MailLog {
                			   // System.out.println(str_ErrArray[1]);
                			   // System.out.println(str_ErrArray[2]);
                		   }
+                	  /*
+           			  // From:
+           			  if (Pattern.compile(str_from).matcher(line.toLowerCase()).find()){
+          				   str_Mail_Addr_From = toAddrString(line);
+          				   // System.out.println(str_Mail_Addr);
+          			   }
+          			   */
+
                		   if(find_error){
                			   // To: Mail address
                			  if (Pattern.compile(str_to).matcher(line.toLowerCase()).find()){
                				   str_Mail_Addr_To = toAddrString(line);
                				   // System.out.println(str_Mail_Addr);
                			   }
+               			  
                			   // Subject
                			   if (Pattern.compile(str_subject).matcher(line).find()){
                				   str_Subject = toSubjectString(line);
@@ -270,7 +278,7 @@ class MailLog {
               					   }
               				   }
               			   }
-                    	  
+                    	  // to address
                     	  if (Pattern.compile(str_to).matcher(line.toLowerCase()).find()){
                     		   if( line.indexOf("@") == -1){
                     			   line = br2.readLine();
@@ -283,21 +291,43 @@ class MailLog {
                     				   str_Mail_Addr_To = line;
                     			   }
                     		   }else{
-                    			   // From address ->?@To Address
+                    			   // From address ->　To Address
                     			   str_Mail_Addr_To = toAddrString(line);
                     			   str_Mail_Addr_To = str_Mail_Addr_To.replace("<", "").replace(">","");
                     			   //System.out.println(str_Mail_Addr_To);
                     			   //System.out.println(line);
                     		   }
               			   }
+                    	  /*
+                    	  // from address
+                    	  if (Pattern.compile(str_from).matcher(line.toLowerCase()).find()){
+                    		   if( line.indexOf("@") == -1){
+                    			   line = br2.readLine();
+                    			   line = line.replaceAll("\t", " ");
+                    			   if( line.indexOf("@") != -1){
+                    				   str_Mail_Addr_From = line;
+                      				   str_Mail_Addr_From = toAddrString(line);
+                      				   str_Mail_Addr_From = str_Mail_Addr_To.replace("<", "").replace(">","");
+                    			   }else{
+                    				   str_Mail_Addr_From = line;
+                    			   }
+                    		   }else{
+                    			   // From address ->　To Address
+                    			   str_Mail_Addr_From = toAddrString(line);
+                    			   str_Mail_Addr_From = str_Mail_Addr_To.replace("<", "").replace(">","");
+                    			   System.out.println(str_Mail_Addr_From);
+                    			   System.out.println(line);
+                    		   }
+              			   }
+              			   */
                       }
                       br2.close();
        		   	  }
                   
-                  /* csv?o??p??f?[?^??
-                                                  ???t+???A?h?{?G???[???{?G???[?R?[?h?{?c?????{????G???[??e
+                  /* csv出力用のデータ作成
+                                                  日付+メアド＋エラー種別＋エラーコード＋残り文字＋元のエラー内容
                   */
-       		   	 // ???A?h??h???C???????????o???B
+       		   	 // To メアドのドメインだけ抜き出す。
               	 int index = str_Mail_Addr_To.lastIndexOf("@");
               	 String str_Domain;
             	 if (index > 0){
@@ -305,9 +335,23 @@ class MailLog {
             	 }else{
             		 str_Domain = "";
             	 }
+       		   	 // from メアドのドメインだけ抜き出す。
+            	 /*
+              	 int index2 = str_Mail_Addr_From.lastIndexOf("@");
+              	 String str_Domain2;
+            	 if (index2 > 0){
+            		str_Domain2  = str_Mail_Addr_From.substring(index2 + 1);
+            	 }else{
+            		 str_Domain2 = "";
+            	 }
+            	 */
                   String str_csv = str_MySQL_date.concat(","); 
                 	 str_csv = str_csv.concat(str_Mail_Addr_To.concat(","));
                      str_csv = str_csv.concat(str_Domain.concat(","));
+                     /*
+                	 str_csv = str_csv.concat(str_Mail_Addr_From.concat(","));
+                     str_csv = str_csv.concat(str_Domain2.concat(","));
+                     */
                      str_csv = str_csv.concat(str_ErrArray[0].concat(","));
                      str_csv = str_csv.concat(str_ErrArray[1].concat(","));
                      str_csv = str_csv.concat(str_ErrArray[2].concat(","));

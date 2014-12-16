@@ -19,71 +19,70 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * Seleniumv
+ * Seleniumã€
  */
 public class GetFriendList {
     private WebDriver driver;
     
     /**
-     * Œ»İ‚ÌŠÂ‹«‚É‰‚¶‚½chromedriver‚ÌƒCƒ“ƒXƒg[ƒ‹ƒpƒX‚ğæ“¾‚·‚éB
+     * ç¾åœ¨ã®ç’°å¢ƒã«å¿œã˜ãŸchromedriverã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒ‘ã‚¹ã‚’å–å¾—ã™ã‚‹ã€‚
      */
     private String chromeDriverPath() {
         String path;
         if (SystemUtils.IS_OS_MAC || SystemUtils.IS_OS_MAC_OSX) {
-            path = "chromedriver/mac/chromedriver"; // MacŠÂ‹«‚Ìê‡
+            path = "chromedriver/mac/chromedriver"; // Macç’°å¢ƒã®å ´åˆ
         } else {
-            path = "chromedriver/win/chromedriver.exe"; // WindowsŠÂ‹«‚Ìê‡
+            path = "chromedriver/win/chromedriver.exe"; // Windowsç’°å¢ƒã®å ´åˆ
         }
         File file = new File(path);
         return file.getAbsolutePath();
     }
     
     /**
-     * ‰Šúˆ—B
-     * u@Beforev‚ğ‚Â‚¯‚½ƒƒ\ƒbƒh‚ÍAŠeƒeƒXƒgƒƒ\ƒbƒh‚ÌŠJn‘O‚É–ˆ‰ñÀs‚³‚ê‚éB
+     * åˆæœŸå‡¦ç†ã€‚
+     * ã€Œ@Beforeã€ã‚’ã¤ã‘ãŸãƒ¡ã‚½ãƒƒãƒ‰ã¯ã€å„ãƒ†ã‚¹ãƒˆãƒ¡ã‚½ãƒƒãƒ‰ã®é–‹å§‹å‰ã«æ¯å›å®Ÿè¡Œã•ã‚Œã‚‹ã€‚
      */
     @Before
-    public void setUp() {
-        // chromedriver‚ÌƒCƒ“ƒXƒg[ƒ‹êŠ‚ğw’è
+    public void SsetUp() {
+        // chromedriverã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«å ´æ‰€ã‚’æŒ‡å®š
         System.setProperty("webdriver.chrome.driver", chromeDriverPath());
         
-        // WebDriver‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚µƒuƒ‰ƒEƒU‚ğ‹N“®
+        // WebDriverã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã—ãƒ–ãƒ©ã‚¦ã‚¶ã‚’èµ·å‹•
         driver = new ChromeDriver();
-        // ƒEƒBƒ“ƒhƒEƒTƒCƒY‚ğw’è
+        // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã‚’æŒ‡å®š
         int width = 1200;
         int height =1000;
         driver.manage().window().setSize(new Dimension(width,height));
     }
     
     /**
-     * I—¹ˆ—B
-     * u@Afterv‚ğ‚Â‚¯‚½ƒƒ\ƒbƒh‚ÍAŠeƒeƒXƒgƒƒ\ƒbƒh‚ÌI—¹Œã‚É–ˆ‰ñÀs‚³‚ê‚éB    
+     * çµ‚äº†å‡¦ç†ã€‚
+     * ã€Œ@Afterã€ã‚’ã¤ã‘ãŸãƒ¡ã‚½ãƒƒãƒ‰ã¯ã€å„ãƒ†ã‚¹ãƒˆãƒ¡ã‚½ãƒƒãƒ‰ã®çµ‚äº†å¾Œã«æ¯å›å®Ÿè¡Œã•ã‚Œã‚‹ã€‚    
      */
     @After
     public void tearDown() {
-        // ƒuƒ‰ƒEƒU‚ğ•Â‚¶AWebDriver‚ğI—¹‚·‚é
+        // ãƒ–ãƒ©ã‚¦ã‚¶ã‚’é–‰ã˜ã€WebDriverã‚’çµ‚äº†ã™ã‚‹
         driver.quit();
     }
     
     /**
-     * ƒƒCƒ“ƒXƒgˆ—B
-     * JUnit‚ÍAu@Testv‚ª‚Â‚¢‚½ƒƒ\ƒbƒh‚ğƒeƒXƒgƒƒ\ƒbƒh‚Æ‚µ‚ÄÀs‚·‚éB
+     * ãƒ¡ã‚¤ãƒ³ã‚¹ãƒˆå‡¦ç†ã€‚
+     * JUnitã¯ã€ã€Œ@Testã€ãŒã¤ã„ãŸãƒ¡ã‚½ãƒƒãƒ‰ã‚’ãƒ†ã‚¹ãƒˆãƒ¡ã‚½ãƒƒãƒ‰ã¨ã—ã¦å®Ÿè¡Œã™ã‚‹ã€‚
      */
     @Test
     public void test() {
-        
-        // URL‚ğİ’è
+        // URLã‚’è¨­å®š
         String url = "https://facebook.com/";
         String BaseURL ="https://www.facebook.com/friends.php?id=";
         System.out.println(url);
         
-        // w’è‚µ‚½URL‚ÌƒEƒFƒuƒy[ƒW‚ÉˆÚ“®
+        // æŒ‡å®šã—ãŸURLã®ã‚¦ã‚§ãƒ–ãƒšãƒ¼ã‚¸ã«ç§»å‹•
         driver.get(url);
-        // Assert.assertEquals(driver.getTitle(),"‚Ä‚·‚Æ");
+        // Assert.assertEquals(driver.getTitle(),"ã¦ã™ã¨");
         
-        // •¶š—ñ“ü—ÍEƒNƒŠƒbƒN‚È‚Ç‚Ìˆ—
+        // æ–‡å­—åˆ—å…¥åŠ›ãƒ»ã‚¯ãƒªãƒƒã‚¯ãªã©ã®å‡¦ç†
         try {
-            // facebook ‚ÉƒƒOƒCƒ“‚·‚é
+            // facebook ã«ãƒ­ã‚°ã‚¤ãƒ³ã™ã‚‹.
             WebElement userName = driver.findElement(By.id("email"));
             userName.sendKeys("isamu_0330@hotmail.co.jp");
             // test
@@ -98,28 +97,29 @@ public class GetFriendList {
             String prof_url;
             String fbid;
             int i = 0;
-            Actions act = new Actions(driver);
+            
+           	Actions act = new Actions(driver);
             FriendList fl = new FriendList();
             
-            while ((fbid = fl.ReadFB_Account(i)) != null) {
+            while ((fbid = fl.Get_FB_Account(i)) != null) {
             	prof_url = BaseURL.concat(fbid);
             	System.out.println(prof_url);
             	driver.get(prof_url);
            	
             	List<WebElement> element;
-            	// ‰Šú‰æ–Ê‚Ådefault40Œ•\¦‚³‚ê‚éB
+            	// åˆæœŸç”»é¢ã§default40ä»¶è¡¨ç¤ºã•ã‚Œã‚‹ã€‚
             	Thread.sleep(5000);
            	  	//System.out.println(driver.findElement(By.id("pagelet_timeline_main_column")).getText());
             	//System.out.println(driver.findElement(By.className("fsl fwb fcb")).getText());
             
            		Boolean scroll_flg = true;
             	while(scroll_flg == true){            		
-            		//ƒy[ƒWƒ_ƒEƒ“‚ğ‰Ÿ‰º‚µ‚ÄƒXƒNƒ[ƒ‹‚³‚¹‚é
+            		//ãƒšãƒ¼ã‚¸ãƒ€ã‚¦ãƒ³ã‚’æŠ¼ä¸‹ã—ã¦ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã•ã›ã‚‹
             		// element = driver.findElements(By.className("uiHeaderTitle"));
             		element = driver.findElements(By.cssSelector("div[class='clearfix uiHeaderTop']"));
             		for(int j=0; j < element.size();j++){
             			// System.out.println(element.get(j).getText());
-                	    if(Pattern.compile("‚³‚ñ‚É‚Â‚¢‚Ä‚à‚Á‚ÆŒ©‚é").matcher(element.get(j).getText()).find()){
+                	    if(Pattern.compile("ã•ã‚“ã«ã¤ã„ã¦ã‚‚ã£ã¨è¦‹ã‚‹").matcher(element.get(j).getText()).find()){
                 	    	scroll_flg = false;
                 	    	System.out.println("Found!! Bottom line of friends list");
                 	    	break;
@@ -134,68 +134,24 @@ public class GetFriendList {
             	System.out.println("Miya-1");
        
             	// System.out.println(driver.findElement(By.id("pagelet_timeline_medley_friends")).getText());
-            	//—F’Bˆê——‚ğæ“¾@class‚ğw’è‚µ‚Äcontents‚©‚çæ“¾
+            	//å‹é”ä¸€è¦§ã‚’å–å¾—ã€€classã‚’æŒ‡å®šã—ã¦contentsã‹ã‚‰å–å¾—
             	element = driver.findElements(By.cssSelector("a[class='_5q6s _8o _8t lfloat _ohe']"));
             	//element.get(0).click();
             	for(int k = 0; k < element.size(); k++){
             		System.out.println(String.valueOf(k+1).concat(":").concat(element.get(k).getAttribute("href")));
-            		   driver.get(element.get(k).getAttribute("href"));
+            		   // driver.get(element.get(k).getAttribute("href"));
             		  // Thread.sleep(10000);
             	}
             	///System.out.println(driver.findElement(By.className("System.out.println(driver.findElement(By.className("_5q6s _8o _8t lfloat _ohe")).getText());
-/*
-      	  		//a@ƒ^ƒO‚Ì“à—e‚ğæ“¾‚·‚éB
-           		WebElement link;
-           		// link = driver.findElement(By.partialLinkText("¬’r Œbq"));
-            	// System.out.println(link.getAttribute("href"));
-            	System.out.println("Miya-2");
-          		//@‘S‚Ä‚ÌƒŠƒ“ƒN‚ğæ“¾‚µ‚Ä‚İ‚é
-           		List<WebElement> cheese = driver.findElements(By.tagName("a"));
-           		for(int j = 0; j < cheese.size(); j++){
-        	   		link = driver.findElement(By.partialLinkText(cheese.get(j).getText()));
-        	   		// a ƒ^ƒO‚Ì“à—e
-        	   		// ©•ªˆÈŠO‚¾‚Á‚½‚ç
-        	    	if(! Pattern.compile(fbid).matcher(link.getAttribute("href").toLowerCase()).find()){
-        			//   System.out.println(link.getText());
-        			//   System.out.println(link.getAttribute("href"));
-        	   	}
-*/
-    	   System.out.println("Miya-3");
-        } // while
+         	   	System.out.println("Miya-3");
+            } // while
+     	   	System.out.println("Miya-3-1");
             // driver.switchTo().alert().accept();
-            Thread.sleep(5000); // ƒfƒ‚—p       
+            Thread.sleep(5000); // ãƒ‡ãƒ¢ç”¨       
         } catch (InterruptedException e) {
         	throw new RuntimeException(e);
-        }
-    }
+        } // try()
+    } //test()
 
-
-    public void show_profile() {
-    	// Menu-> Profile
-    	String ur2 = "http://profile.biz-iq.jp?refUrl=naviBar";
-    	driver.get(ur2);
-    	
-    	try{
-    		// ƒvƒƒtƒB[ƒ‹‚ğ•ÒW‚·‚éƒ{ƒ^ƒ“Link
-    		driver.get("https://profile.biz-iq.jp/profile/baseInfo");
-    		WebElement stage = driver.findElement(By.id("stageRadios"));
-    		// Radioƒ{ƒ^ƒ“i]‹ÆˆõAŠw¶EEEj
-    		driver.findElement(By.xpath("//input[@name='stage' and @value='15']")).click();
-    		// driver.findElement(By.id("stageRadios"));
-    		// driver.findElement(By.
-    		
-            Thread.sleep(1000);	
-    	}catch (InterruptedException e) {
-        	throw new RuntimeException(e);
-        }
-    }
- /**
-    public void waitForElementToLoad(final By locator, int timeOutInSeconds) {
-        new WebDriverWait(driver, timeOutInSeconds).until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver driver) {
-                return driver.findElement(locator).isDisplayed();
-            }
-        });
-    }
-***/
-}
+} // class
+    

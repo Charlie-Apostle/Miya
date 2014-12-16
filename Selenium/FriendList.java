@@ -20,11 +20,10 @@ class FriendList {
 			 "100001650247953" //Miyasaka
 			 "100001409430955" // Yasu
 			 */
-			 "100001409430955", // Yasu
 			"100001650247953" //Miyasaka
 	   	};
  	
-	public String ReadFB_Account(int no){
+	public String Get_FB_Account(int no){
     	if(no < fbid.length){
     		return fbid[no];
     	}else{
